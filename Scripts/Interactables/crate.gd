@@ -13,6 +13,7 @@ func _process(delta):
 
 func _on_hitbox_area_entered(area):
 	if area.name == "range":
+		player_data.current_health -=1
 		$anim.play("Destroyed")
 		await  $anim.animation_finished
 		queue_free()
