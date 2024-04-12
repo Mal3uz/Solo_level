@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bwynu5sdy128j"]
+[gd_scene load_steps=60 format=3 uid="uid://bwynu5sdy128j"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_pnfim"]
 [ext_resource type="Texture2D" uid="uid://dy8f3x60lgsog" path="res://Sprites/hmg/hmg/bllm.png" id="2_p1b22"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dshk3wsjrih6y" path="res://Scenes/Interactables/crate.tscn" id="4_poluo"]
 [ext_resource type="Script" path="res://Scripts/GUI/camera_panning.gd" id="6_qlvbd"]
 [ext_resource type="PackedScene" uid="uid://dje1umxte4lu1" path="res://Scenes/Interactables/heart.tscn" id="7_syhrn"]
+[ext_resource type="Texture2D" uid="uid://b1om25s6f1gsd" path="res://GUI/HeartSpriteSheet.png" id="8_8tei0"]
+[ext_resource type="Script" path="res://Scripts/GUI/GUI.gd" id="8_ug068"]
 
 [sub_resource type="Animation" id="Animation_r1kmd"]
 resource_name = "AttackDown"
@@ -228,6 +230,35 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_hvhej"]
+resource_name = "DeathDown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [92]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_states_reset"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_3j1cf"]
 resource_name = "DeathLeft"
 tracks/0/type = "value"
@@ -270,6 +301,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [80]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_states_reset"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qvrce"]
+resource_name = "DeathUp"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [88]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -459,64 +519,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [16, 17, 18, 19]
-}
-
-[sub_resource type="Animation" id="Animation_hvhej"]
-resource_name = "DeathDown"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [92]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"on_states_reset"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_qvrce"]
-resource_name = "DeathUp"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [88]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"on_states_reset"
-}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e0psi"]
@@ -873,3 +875,20 @@ player = NodePath("../Player")
 
 [node name="heart" parent="." instance=ExtResource("7_syhrn")]
 position = Vector2(202, 123)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("8_ug068")
+
+[node name="player_icon" type="Sprite2D" parent="GUI"]
+position = Vector2(53, 61)
+scale = Vector2(3, 2.814)
+texture = ExtResource("2_p1b22")
+hframes = 4
+vframes = 24
+frame = 52
+
+[node name="heart" type="Sprite2D" parent="GUI"]
+position = Vector2(117, 52)
+scale = Vector2(3, 3)
+texture = ExtResource("8_8tei0")
+hframes = 5
