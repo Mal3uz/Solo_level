@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bwynu5sdy128j"]
+[gd_scene load_steps=61 format=3 uid="uid://bwynu5sdy128j"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_pnfim"]
 [ext_resource type="Texture2D" uid="uid://dy8f3x60lgsog" path="res://Sprites/hmg/hmg/bllm.png" id="2_p1b22"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dje1umxte4lu1" path="res://Scenes/Interactables/heart.tscn" id="7_syhrn"]
 [ext_resource type="Texture2D" uid="uid://b1om25s6f1gsd" path="res://GUI/HeartSpriteSheet.png" id="8_8tei0"]
 [ext_resource type="Script" path="res://Scripts/GUI/GUI.gd" id="8_ug068"]
+[ext_resource type="PackedScene" uid="uid://d4f7rsqcn8p1s" path="res://Scenes/Enemies/enemy_1.tscn" id="10_si1j1"]
 
 [sub_resource type="Animation" id="Animation_r1kmd"]
 resource_name = "AttackDown"
@@ -892,3 +893,6 @@ position = Vector2(117, 52)
 scale = Vector2(3, 3)
 texture = ExtResource("8_8tei0")
 hframes = 5
+
+[node name="enemy_1" parent="." instance=ExtResource("10_si1j1")]
+position = Vector2(282, 167)
