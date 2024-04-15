@@ -818,7 +818,7 @@ libraries = {
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_bl4b3")
 
-[node name="range" type="Area2D" parent="Player"]
+[node name="range" type="Area2D" parent="Player" groups=["Range"]]
 position = Vector2(16, -5)
 collision_layer = 2
 collision_mask = 4
@@ -895,4 +895,4 @@ texture = ExtResource("8_8tei0")
 hframes = 5
 
 [node name="enemy_1" parent="." instance=ExtResource("10_si1j1")]
-position = Vector2(282, 167)
+position = Vector2(251, 131)

@@ -1,7 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4f7rsqcn8p1s"]
+[gd_scene load_steps=9 format=3 uid="uid://d4f7rsqcn8p1s"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy_1.gd" id="1_frv0t"]
 [ext_resource type="Texture2D" uid="uid://bxrxitgwdq8d6" path="res://Sprites/Enemy/Torch_Red.png" id="2_qokrl"]
+
+[sub_resource type="Animation" id="Animation_hxih3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_dqdko"]
 resource_name = "move_left"
@@ -60,33 +87,6 @@ tracks/1/keys = {
 "values": [false, false]
 }
 
-[sub_resource type="Animation" id="Animation_hxih3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [8]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bwwba"]
 _data = {
 "RESET": SubResource("Animation_hxih3"),
@@ -96,6 +96,10 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20jrr"]
 size = Vector2(45, 68)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8d45o"]
+radius = 28.0
+height = 72.0
 
 [node name="enemy_1" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -122,4 +126,14 @@ shape = SubResource("RectangleShape2D_20jrr")
 wait_time = 3.0
 autostart = true
 
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_8d45o")
+debug_color = Color(0.878431, 0.305882, 0.396078, 0.419608)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
